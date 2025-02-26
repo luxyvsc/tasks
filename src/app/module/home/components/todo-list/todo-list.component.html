@@ -1,15 +1,16 @@
 <section [ngClass]="{'loading': !taskList.length}">
 
-    <ul *ngIf="taskList.length">
-        <li *ngFor="let item of taskList; let i = index">
-            <input type="checkbox" [(ngModel)]="item.checked">
-            <input type="text" (keyup)="validationTask(item.task, i)" [(ngModel)]="item.task" [ngClass]="{'checked': item.checked}">
+  <ul *ngIf="taskList.length" cdkDropList [cdkDropListData]="taskList" (cdkDropListDropped)="drop($event)">
+      <li *ngFor="let item of taskList; let i = index" cdkDrag>
+          <span class="drag-handle" cdkDragHandle>☰</span> <!-- Ícone para arrastar -->
+          <input type="checkbox" [(ngModel)]="item.checked">
+          <input type="text" (keyup)="validationTask(item.task, i)" [(ngModel)]="item.task" [ngClass]="{'checked': item.checked}">
 
-            <button (click)="deleteItemTaskList(i)">
-                <i class="icon-trash"></i>
-            </button>
-        </li>
-    </ul>
+          <button (click)="deleteItemTaskList(i)">
+              X
+          </button>
+      </li>
+  </ul>
 
 </section>
 
